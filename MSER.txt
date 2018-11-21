@@ -1,0 +1,53 @@
+MSER      START     
+          RPUSH     
+          LAD       GR1,-1
+          LAD       GR5,-2
+LP1       LAD       GR1,1,GR1
+          LAD       GR2,-1
+          CPA       GR1,=5
+          JZE       FIN1
+          LD        GR3,MGRT,GR1
+          LD        GR4,GR3
+LP2       LAD       GR2,1,GR2
+          CPA       GR2,=16
+          JZE       LP1
+          LAD       GR5,2,GR5
+          LD        GR5,GR5
+          JPL       PSFT
+          LD        GR3,GR3
+          JUMP      FJMP
+PSFT      SLL       GR3,1
+FJMP      JMI       LP2
+          JZE       LP1
+          LAD       GR0,ELMT,GR5
+          LD        GR6,=#8000
+          SRL       GR6,0,GR2
+          OR        GR4,GR6
+          ST        GR4,MGRT,GR1
+          JUMP      FIN2
+FIN1      LD        GR0,=-1
+FIN2      RPOP      
+          RET       
+MGRT      DC        #4000,#0000,#0000,#0000,#0000
+ELMT      DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          DC        #FFFF,#1234,#FFF0,#5555,#FFFF,#1234,#FFF0,#5555
+          END       
+
