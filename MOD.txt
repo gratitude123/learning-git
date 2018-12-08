@@ -42,7 +42,7 @@ NOSUB SRA   GR3,1
       JMI   RET
       JUMP  L3
 
-; (return) 最後に残った GR2 が剰余。GR0 に格納して戻る
+; (return) 最後に残った GR2 が剰余。GR0 に格納して戻る。割り切れるかの検査にしたければここでGR0を求める
 RET   LD    GR0,GR2
       RPOP
       RET
