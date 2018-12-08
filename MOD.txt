@@ -33,13 +33,12 @@ BODY  LD    GR4,GR5
 
 ; シフトで大きくなった GR3 を 1 ビットずつ戻していき、GR2 から引いていく
       LD    GR4,GR4
-      JMI   RET
-L3    CPA   GR2,GR3
+L3    JMI   RET
+      CPA   GR2,GR3
       JMI   NOSUB
       SUBA  GR2,GR3
 NOSUB SRA   GR3,1
       SUBA  GR4,=1
-      JMI   RET
       JUMP  L3
 
 ; (return) 最後に残った GR2 が剰余。GR0 に格納して戻る。割り切れるかの検査にしたければここでGR0を求める
