@@ -1,0 +1,47 @@
+DVSB      START     
+          RPUSH
+          LD        GR2,=5400
+          LD        GR3,=270    
+          LD        GR1,=-1
+          LD        GR6,=-1
+          LD        GR4,GR2
+          LD        GR5,GR3
+DCNT      SRL       GR5,1
+          JOV       FIND
+          JZE       NEXT
+          ADDA      GR6,=1
+          JUMP      DCNT
+FIND      ADDA      GR6,=1
+          ADDA      GR1,=1
+          ST        GR6,FADR,GR1
+          CPA       GR6,=13
+          JNZ       DCNT
+NEXT      LD        GR7,=-1
+          ADDA      GR1,=1
+          ST        GR7,FADR,GR1
+          LD        GR0,=0
+DVID      LD        GR5,=-1
+          SRA       GR4,0,GR6
+          JZE       DNOT
+          ADDA      GR4,GR0
+          LD        GR7,=0
+MLTP      LD        GR1,GR4
+          ADDA      GR5,=1
+          LD        GR3,FADR,GR5
+          JMI       DIFF
+          SLL       GR1,0,GR3
+          ADDA      GR7,GR1
+          JUMP      MLTP
+DIFF      LD        GR5,GR2
+          SUBA      GR5,GR7
+          JZE       DCAN
+          LD        GR0,GR4
+          LD        GR4,GR5
+          JUMP      DVID
+DNOT      LD        GR0,=0
+          JUMP      DEND
+DCAN      LD        GR0,=1
+DEND      RPOP
+          RET
+FADR      DS        13
+          END
