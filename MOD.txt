@@ -1,0 +1,48 @@
+; GR0 戻り値 (剰余)
+; GR2 被除数 a (>= 0)
+; GR3 除数 b (> 0)
+; GR4 作業変数 t
+; GR5 被除数 a のビット数 (e.g. 11010 なら 5, 100 なら 3)
+; GR6 除数 b のビット数
+
+MOD   START
+      RPUSH
+      LAD   GR2,3049  ; テスト用の適当な被除数
+      LAD   GR3,109   ; テスト用の適当な除数
+
+; (bit count 1) GR2 のビット数を GR5 に格納
+BC1   LAD   GR5,0
+      LD    GR4,GR2
+L1    JZE   BC2
+      ADDA  GR5,=1
+      SRA   GR4,1
+      JUMP  L1
+
+; (bit count 2) GR3 のビット数を GR6 に格納
+BC2   LAD   GR6,0
+      LD    GR4,GR3
+L2    JZE   BODY
+      ADDA  GR6,=1
+      SRA   GR4,1
+      JUMP  L2
+
+; (body) ビット数差を求め、GR3 の最上位ビットを GR2 に合わせてシフト
+BODY  LD    GR4,GR5
+      SUBA  GR4,GR6
+      SLA   GR3,0,GR4
+
+; シフトで大きくなった GR3 を 1 ビットずつ戻していき、GR2 から引いていく
+      LD    GR4,GR4
+L3    JMI   RET
+      CPA   GR2,GR3
+      JMI   NOSUB
+      SUBA  GR2,GR3
+NOSUB SRA   GR3,1
+      SUBA  GR4,=1
+      JUMP  L3
+
+; (return) 最後に残った GR2 が剰余。GR0 に格納して戻る。割り切れるかの検査にしたければここでGR0を求める
+RET   LD    GR0,GR2
+      RPOP
+      RET
+      END
